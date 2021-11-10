@@ -68,6 +68,7 @@ $contato = new Contato();
                     <td>
                         <button type="button" class="btn btn-dark btn-sm "><a href="acoes/editar.php?id=<?php echo $item['id']; ?>" style="text-decoration:none; color:#FFF">EDITAR</a></button>
                         <button type="button" class="btn btn-dark btn-sm "><a href="acoes/excluir.php?id=<?php echo $item['id']; ?>" style="text-decoration:none; color:#FFF">EXCLUIR</a></button>
+                        <button type="button" class="btn btn-dark btn-sm "><a href="acoes/desativar.php?id=<?php echo $item['id']; ?>" style="text-decoration:none; color:#FFF">DESATIVAR</a></button>
                     </td>
                 </tr>
                 <?php endforeach?>
@@ -76,6 +77,28 @@ $contato = new Contato();
                 </tr>
             </tbody>
         </table>
+
+        <br><br><br>
+        <div class="h4 text-center">Contatos desativados</div>
+
+        <table class="table table-sm text-center">
+            
+            <tbody>
+                <?php
+                $lista = $contato->getAllDesativados();
+                foreach($lista as $item):
+                ?>
+                <tr class="">
+                    <td><?php echo $item['nome']; ?></td>
+                    <td><?php echo $item['email']; ?></td>
+                    <td>
+                        <button type="button" class="btn btn-dark btn-sm "><a href="acoes/ativar.php?id=<?php echo $item['id']; ?>" style="text-decoration:none; color:#FFF">ATIVAR</a></button>
+                    </td>
+                </tr>
+                <?php endforeach?>
+            </tbody>
+        </table>
+        <br><br><br>
     </div>
 </body>
 </html>

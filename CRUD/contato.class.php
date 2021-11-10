@@ -42,7 +42,17 @@ class Contato {
 
     # R - READ
     public function getAll() {
-        $sql = "SELECT * FROM contatos";
+        $sql = "SELECT * FROM contatos WHERE status = 1";
+        $sql = $this->pdo->query($sql);
+
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll();
+        } else {
+            return array();
+        }
+    }
+    public function getAllDesativados() {
+        $sql = "SELECT * FROM contatos WHERE status = 0";
         $sql = $this->pdo->query($sql);
 
         if($sql->rowCount() > 0) {
@@ -57,6 +67,19 @@ class Contato {
         $sql = "UPDATE contatos SET nome = :nome WHERE id = :id";
         $sql = $this->pdo->prepare($sql);
         $sql->bindValue(':nome', $nome);
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+    }
+    # U - UPDATE STATUS
+    public function desativarStatus($id) {
+        $sql = "UPDATE contatos SET status = 0 WHERE id = :id";
+        $sql = $this->pdo->prepare($sql);
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+    }
+    public function ativarStatus($id) {
+        $sql = "UPDATE contatos SET status = 1 WHERE id = :id";
+        $sql = $this->pdo->prepare($sql);
         $sql->bindValue(':id', $id);
         $sql->execute();
     }
